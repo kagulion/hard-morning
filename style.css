@@ -45,7 +45,7 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .hero-bg {
@@ -85,8 +85,8 @@ a {
   margin-top: 24px;
   display: inline-flex;
   align-items: center;
-  gap: 22px;
-  padding: 6px 8px 6px 16px;
+  gap: 32px;
+  padding: 12px 20px 12px 20px;
   background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -110,7 +110,7 @@ a {
 }
 
 .holyjs-nav-logo {
-  height: 22px;
+  height: 36px;
   width: auto;
   display: block;
 }
@@ -201,7 +201,7 @@ a {
    ========================================================================== */
 .hero-divider {
   position: absolute;
-  bottom: 0;
+  bottom: -46px;
   left: 0;
   width: 100%;
   z-index: 10;
@@ -338,12 +338,12 @@ a {
 
   .pill-nav {
     margin-top: 16px;
-    gap: 12px;
-    padding: 5px 8px 5px 12px;
+    gap: 8px;
+    padding: 8px;
   }
 
   .holyjs-nav-logo {
-    height: 18px;
+    height: 28px;
   }
 
   .nav-links {
@@ -360,11 +360,11 @@ a {
   }
 
   .hero-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .main-content {
