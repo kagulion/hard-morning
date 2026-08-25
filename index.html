@@ -44,13 +44,16 @@
     </nav>
 
     <!-- Hero Section (Full Screen) -->
-    <header class="hero-section">
+    <header class="hero-section" id="hero">
       <!-- Background image -->
       <div
         class="hero-bg"
         style="background-image: url(&quot;assets/images/hero.jpeg&quot;)"
       ></div>
       <div class="hero-overlay"></div>
+
+      <!-- Fireflies Particle Canvas -->
+      <canvas id="fireflies-canvas" class="hero-fireflies"></canvas>
 
       <!-- Hero Title -->
       <div class="hero-content">
@@ -217,10 +220,10 @@
       </div>
     </footer>
 
-    <!-- Scroll Reveal & Floating Nav Script -->
+    <!-- Scripts: Scroll Reveal, Floating Nav & Fireflies Simulation -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Floating Nav Scroll State
+        // 1. Floating Nav Scroll State
         const nav = document.getElementById("floating-nav");
         const handleScroll = () => {
           if (window.scrollY > 80) {
@@ -232,7 +235,7 @@
         window.addEventListener("scroll", handleScroll, { passive: true });
         handleScroll();
 
-        // Intersection Observer for Smooth Section Reveal
+        // 2. Intersection Observer for Smooth Section Reveal
         const revealElements = document.querySelectorAll(".reveal-on-scroll");
         if ("IntersectionObserver" in window) {
           const observer = new IntersectionObserver(
@@ -254,6 +257,199 @@
         } else {
           revealElements.forEach((el) => el.classList.add("is-revealed"));
         }
+
+        // 3. Fireflies Simulation on Hero Section Canvas
+        const canvas = document.getElementById("fireflies-canvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let width = 0;
+        let height = 0;
+        let animationFrameId = null;
+        let isHeroVisible = true;
+
+        const resizeCanvas = () => {
+          const rect = canvas.parentElement.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          width = rect.width;
+          height = rect.height;
+          canvas.width = width * dpr;
+          canvas.height = height * dpr;
+          ctx.scale(dpr, dpr);
+        };
+
+        window.addEventListener("resize", resizeCanvas, { passive: true });
+        resizeCanvas();
+
+        // Palette of glowing yellow and white particles
+        const colors = [
+          { r: 255, g: 242, b: 140 }, // Soft Warm Yellow
+          { r: 250, g: 204, b: 21 }, // Golden Yellow
+          { r: 254, g: 226, b: 90 }, // Light Sunlight
+          { r: 255, g: 255, b: 255 }, // Pure White
+          { r: 254, g: 249, b: 215 }, // Warm Glow White
+        ];
+
+        class Firefly {
+          constructor(initial = false) {
+            this.reset(initial);
+          }
+
+          reset(initial = false) {
+            // Spawn: 50% left side (0% - 38%), 50% right side (62% - 100%), bottom area (48% - 94%)
+            const isLeft = Math.random() < 0.5;
+            if (isLeft) {
+              this.x = width * (0.01 + Math.random() * 0.38);
+            } else {
+              this.x = width * (0.61 + Math.random() * 0.38);
+            }
+
+            this.y = height * (0.48 + Math.random() * 0.46);
+
+            this.radius = 1.4 + Math.random() * 2.4;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+
+            // Gentle organic roaming movement
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = -(0.12 + Math.random() * 0.3); // Gentle upward drift
+            this.driftAngleX = Math.random() * Math.PI * 2;
+            this.driftAngleY = Math.random() * Math.PI * 2;
+            this.driftSpeedX = 0.02 + Math.random() * 0.035;
+            this.driftSpeedY = 0.015 + Math.random() * 0.025;
+            this.driftRadiusX = 0.5 + Math.random() * 0.9;
+            this.driftRadiusY = 0.3 + Math.random() * 0.6;
+
+            // Twinkling / Flickering parameters (мигание)
+            this.twinkleSpeed = 0.06 + Math.random() * 0.09;
+            this.twinklePhase = Math.random() * Math.PI * 2;
+            this.microFlickerSpeed = 0.18 + Math.random() * 0.15;
+            this.maxAlpha = 0.55 + Math.random() * 0.42;
+
+            // Lifespan & smooth envelope
+            this.maxLife = 260 + Math.random() * 320;
+            this.fadeIn = 40 + Math.random() * 30;
+            this.fadeOut = 45 + Math.random() * 30;
+            this.life = initial ? Math.random() * this.maxLife : 0;
+          }
+
+          update() {
+            this.life += 1;
+            if (this.life >= this.maxLife) {
+              this.reset();
+              return;
+            }
+
+            // Slight floating and wandering motion after appearing
+            this.driftAngleX += this.driftSpeedX;
+            this.driftAngleY += this.driftSpeedY;
+            this.x += this.vx + Math.sin(this.driftAngleX) * this.driftRadiusX;
+            this.y += this.vy + Math.cos(this.driftAngleY) * this.driftRadiusY;
+
+            // Smooth envelope (fade in / stay active / fade out)
+            let baseEnvelope = 1;
+            if (this.life < this.fadeIn) {
+              baseEnvelope = this.life / this.fadeIn;
+            } else if (this.life > this.maxLife - this.fadeOut) {
+              baseEnvelope = Math.max(
+                0,
+                (this.maxLife - this.life) / this.fadeOut,
+              );
+            }
+
+            // Authentic firefly twinkling & flickering (мигание)
+            const mainPulse = Math.pow(
+              (Math.sin(this.life * this.twinkleSpeed + this.twinklePhase) +
+                1) /
+                2,
+              2,
+            );
+            const microPulse =
+              (Math.sin(
+                this.life * this.microFlickerSpeed + this.twinklePhase * 2.3,
+              ) +
+                1) *
+              0.15;
+            const flickerIntensity = 0.25 + 0.75 * mainPulse + microPulse;
+
+            this.currentAlpha = Math.max(
+              0,
+              Math.min(1, baseEnvelope * flickerIntensity * this.maxAlpha),
+            );
+            this.currentGlowScale = 0.8 + 0.5 * flickerIntensity;
+          }
+
+          draw() {
+            if (this.currentAlpha <= 0.015) return;
+
+            const { r, g, b } = this.color;
+            const glowRadius = this.radius * 4.8 * this.currentGlowScale;
+
+            // Outer soft pulsating glow halo
+            const glowGradient = ctx.createRadialGradient(
+              this.x,
+              this.y,
+              0,
+              this.x,
+              this.y,
+              glowRadius,
+            );
+            glowGradient.addColorStop(
+              0,
+              `rgba(${r}, ${g}, ${b}, ${this.currentAlpha * 0.9})`,
+            );
+            glowGradient.addColorStop(
+              0.32,
+              `rgba(${r}, ${g}, ${b}, ${this.currentAlpha * 0.4})`,
+            );
+            glowGradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+            ctx.fillStyle = glowGradient;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, glowRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Core bright shimmering point
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(1, this.currentAlpha * 1.15)})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius * 0.75, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        const particleCount = window.innerWidth < 600 ? 35 : 60;
+        const fireflies = Array.from(
+          { length: particleCount },
+          () => new Firefly(true),
+        );
+
+        const render = () => {
+          if (!isHeroVisible) {
+            animationFrameId = requestAnimationFrame(render);
+            return;
+          }
+
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < fireflies.length; i++) {
+            fireflies[i].update();
+            fireflies[i].draw();
+          }
+
+          animationFrameId = requestAnimationFrame(render);
+        };
+
+        // Pause rendering when hero is scrolled offscreen to optimize performance
+        const heroSection = document.getElementById("hero");
+        if ("IntersectionObserver" in window && heroSection) {
+          const heroObserver = new IntersectionObserver(
+            (entries) => {
+              isHeroVisible = entries[0].isIntersecting;
+            },
+            { threshold: 0.05 },
+          );
+          heroObserver.observe(heroSection);
+        }
+
+        render();
       });
     </script>
   </body>
