@@ -3,7 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Основные SEO мета-теги -->
     <title>Тяжёлое утро с HolyJS — Подкаст про технологии</title>
+    <meta
+      name="description"
+      content="«Тяжёлое утро с HolyJS» — техно-подкаст без цензуры и лишнего пафоса. Два несменных ведущих обсуждают актуальные веб-технологии, тренды фронтенда и бэкенда, архитектурные решения и наболевшие вопросы IT-индустрии."
+    />
+    <meta
+      name="keywords"
+      content="HolyJS, Тяжёлое утро, подкаст, веб-разработка, JavaScript, frontend, backend, технологии, IT, программирование"
+    />
+    <meta name="author" content="HolyJS Team" />
+    <meta name="theme-color" content="#161b22" />
+
+    <!-- Фавиконки и иконки для устройств -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/meta/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/meta/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/images/meta/favicon-16x16.png"
+    />
+    <link rel="shortcut icon" href="assets/images/meta/favicon.ico" />
+    <link rel="manifest" href="assets/images/meta/site.webmanifest" />
+
+    <!-- Open Graph (VK, Telegram, Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Тяжёлое утро с HolyJS" />
+    <meta
+      property="og:title"
+      content="Тяжёлое утро с HolyJS — Подкаст про технологии"
+    />
+    <meta
+      property="og:description"
+      content="Два несменных ведущих без цензуры и лишнего пафоса обсуждают актуальные веб-технологии, тренды фронтенд- и бэкенд-разработки и IT-индустрию."
+    />
+    <meta property="og:image" content="assets/images/meta/og-image.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Тяжёлое утро с HolyJS" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Тяжёлое утро с HolyJS — Подкаст про технологии"
+    />
+    <meta
+      name="twitter:description"
+      content="Два несменных ведущих без цензуры и лишнего пафоса обсуждают актуальные веб-технологии и IT-индустрию."
+    />
+    <meta name="twitter:image" content="assets/images/meta/og-image.jpeg" />
+
+    <!-- Микроразметка Schema.org (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "PodcastSeries",
+        "name": "Тяжёлое утро с HolyJS",
+        "description": "Техно-подкаст про актуальные веб-технологии, тренды фронтенд- и бэкенд-разработки, архитектурные решения и наболевшие вопросы IT-индустрии.",
+        "inLanguage": "ru",
+        "url": "https://holyjs.ru/",
+        "image": "assets/images/meta/og-image.jpeg",
+        "author": {
+          "@type": "Organization",
+          "name": "HolyJS",
+          "url": "https://holyjs.ru/"
+        }
+      }
+    </script>
+
+    <!-- Предзагрузка шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,6 +100,7 @@
       <a
         href="https://holyjs.ru/"
         target="_blank"
+        rel="noopener noreferrer"
         class="nav-logo-btn"
         aria-label="HolyJS"
       >
@@ -37,6 +120,7 @@
       <a
         href="https://www.youtube.com/@HolyJS/streams"
         target="_blank"
+        rel="noopener noreferrer"
         class="nav-btn-watch"
       >
         <span>Смотреть</span>
@@ -96,6 +180,7 @@
             <a
               href="https://www.youtube.com/@HolyJS/streams"
               target="_blank"
+              rel="noopener noreferrer"
               class="platform-link-item"
             >
               <img
@@ -109,6 +194,7 @@
             <a
               href="https://www.twitch.tv/TyazheloeUtro"
               target="_blank"
+              rel="noopener noreferrer"
               class="platform-link-item"
             >
               <img
@@ -122,6 +208,7 @@
             <a
               href="https://vkvideo.ru/@holyjs/lives"
               target="_blank"
+              rel="noopener noreferrer"
               class="platform-link-item"
             >
               <img
@@ -176,6 +263,7 @@
                 <a
                   href="https://t.me/samistyping"
                   target="_blank"
+                  rel="noopener noreferrer"
                   class="host-link"
                   >Telegram</a
                 >
@@ -204,6 +292,7 @@
                 <a
                   href="https://t.me/zede_code"
                   target="_blank"
+                  rel="noopener noreferrer"
                   class="host-link"
                   >Telegram</a
                 >
