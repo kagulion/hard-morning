@@ -13,6 +13,36 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Floating Pill Navigation (Fixed on Scroll) -->
+    <nav class="pill-nav" id="floating-nav">
+      <a
+        href="https://holyjs.ru/"
+        target="_blank"
+        class="nav-logo-btn"
+        aria-label="HolyJS"
+      >
+        <img
+          src="assets/images/holyjs-logo-white.svg"
+          alt="HolyJS Logo"
+          class="holyjs-nav-logo"
+        />
+      </a>
+
+      <div class="nav-links">
+        <a href="#podcast-intro" class="nav-link">О подкасте</a>
+        <a href="#video-container" class="nav-link">Выпуски</a>
+        <a href="#hosts" class="nav-link">Ведущие</a>
+      </div>
+
+      <a
+        href="https://www.youtube.com/@HolyJS/streams"
+        target="_blank"
+        class="nav-btn-watch"
+      >
+        <span>Смотреть</span>
+      </a>
+    </nav>
+
     <!-- Hero Section (Full Screen) -->
     <header class="hero-section">
       <!-- Background image -->
@@ -21,36 +51,6 @@
         style="background-image: url(&quot;assets/images/hero.jpeg&quot;)"
       ></div>
       <div class="hero-overlay"></div>
-
-      <!-- Floating Pill Navigation -->
-      <nav class="pill-nav">
-        <a
-          href="https://holyjs.ru/"
-          target="_blank"
-          class="nav-logo-btn"
-          aria-label="HolyJS"
-        >
-          <img
-            src="assets/images/holyjs-logo-white.svg"
-            alt="HolyJS Logo"
-            class="holyjs-nav-logo"
-          />
-        </a>
-
-        <div class="nav-links">
-          <a href="#podcast-intro" class="nav-link">О подкасте</a>
-          <a href="#video-container" class="nav-link">Выпуски</a>
-          <a href="#hosts" class="nav-link">Ведущие</a>
-        </div>
-
-        <a
-          href="https://www.youtube.com/@HolyJS/streams"
-          target="_blank"
-          class="nav-btn-watch"
-        >
-          <span>Смотреть</span>
-        </a>
-      </nav>
 
       <!-- Hero Title -->
       <div class="hero-content">
@@ -74,7 +74,10 @@
     <main class="main-content">
       <div class="container">
         <!-- Podcast Intro Section -->
-        <section class="podcast-intro-section" id="podcast-intro">
+        <section
+          class="podcast-intro-section reveal-on-scroll"
+          id="podcast-intro"
+        >
           <h2 class="section-title">Тяжёлое утро с HolyJS</h2>
 
           <div class="intro-description">
@@ -128,7 +131,7 @@
           </div>
 
           <!-- Video Container (Responsive Full-Width iframe) -->
-          <div class="video-container" id="video-container">
+          <div class="video-container reveal-on-scroll" id="video-container">
             <iframe
               src="https://vkvideo.ru/video_ext.php?oid=-119450242&id=456240577&hash=b540a69aaff8a168&hd=4"
               width="1920"
@@ -147,10 +150,10 @@
         </section>
 
         <!-- Co-Hosts Section -->
-        <section class="hosts-section" id="hosts">
+        <section class="hosts-section reveal-on-scroll" id="hosts">
           <div class="hosts-grid">
             <!-- Host 1 -->
-            <article class="host-card">
+            <article class="host-card reveal-on-scroll">
               <div class="host-avatar-wrapper">
                 <img
                   src="assets/images/semen-avatar.jpeg"
@@ -160,7 +163,7 @@
               </div>
               <div class="host-header">
                 <h3 class="host-name">Семён</h3>
-                <span class="host-role">Coведущий</span>
+                <span class="host-role">Соведущий</span>
               </div>
               <p class="host-bio">
                 Хороший парень, смышленный, опыт выступлений есть, держится
@@ -177,7 +180,7 @@
             </article>
 
             <!-- Host 2 -->
-            <article class="host-card">
+            <article class="host-card reveal-on-scroll">
               <div class="host-avatar-wrapper">
                 <img
                   src="assets/images/denis-avatar.jpeg"
@@ -208,10 +211,50 @@
       </div>
     </main>
 
-    <footer class="footer">
+    <footer class="footer reveal-on-scroll">
       <div class="container footer-content">
         <p>© 2026 Тяжёлое утро с HolyJS</p>
       </div>
     </footer>
+
+    <!-- Scroll Reveal & Floating Nav Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Floating Nav Scroll State
+        const nav = document.getElementById("floating-nav");
+        const handleScroll = () => {
+          if (window.scrollY > 80) {
+            nav.classList.add("is-scrolled");
+          } else {
+            nav.classList.remove("is-scrolled");
+          }
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll();
+
+        // Intersection Observer for Smooth Section Reveal
+        const revealElements = document.querySelectorAll(".reveal-on-scroll");
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-revealed");
+                  obs.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: 0.12,
+              rootMargin: "0px 0px -40px 0px",
+            },
+          );
+
+          revealElements.forEach((el) => observer.observe(el));
+        } else {
+          revealElements.forEach((el) => el.classList.add("is-revealed"));
+        }
+      });
+    </script>
   </body>
 </html>

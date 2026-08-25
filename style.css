@@ -12,8 +12,10 @@
   --color-text-main: #14171f;
   --color-text-muted: #5e697a;
   --color-text-light: #8591a2;
-  --nav-bg: rgba(22, 27, 34, 0.7);
+  --nav-bg: rgba(22, 27, 34, 0.75);
+  --nav-bg-scrolled: rgba(18, 22, 28, 0.88);
   --nav-border: rgba(255, 255, 255, 0.16);
+  --nav-border-scrolled: rgba(255, 255, 255, 0.22);
   --nav-btn-bg: rgba(255, 255, 255, 0.14);
   --nav-btn-hover: rgba(255, 255, 255, 0.24);
 }
@@ -38,66 +40,34 @@ a {
 }
 
 /* ==========================================================================
-   Hero Section (Full Screen)
+   Floating Navigation Pill (Fixed on Scroll)
    ========================================================================== */
-.hero-section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  /*overflow: hidden;*/
-}
-
-.hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  z-index: 1;
-  transform: scale(1.01);
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(15, 23, 42, 0.48) 0%,
-    rgba(15, 23, 42, 0.15) 35%,
-    rgba(15, 23, 42, 0.05) 65%,
-    rgba(15, 23, 42, 0.35) 100%
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Floating Navigation Pill */
 .pill-nav {
-  position: relative;
-  z-index: 10;
-  margin-top: 24px;
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
   display: inline-flex;
   align-items: center;
   gap: 32px;
-  padding: 12px 20px 12px 20px;
+  padding: 12px 20px;
   background: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--nav-border);
   border-radius: 9999px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.12);
-  animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeInDownNav 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+  will-change: transform, background-color, box-shadow;
+}
+
+.pill-nav.is-scrolled {
+  background: var(--nav-bg-scrolled);
+  border-color: var(--nav-border-scrolled);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.16);
+  padding: 10px 18px;
 }
 
 .nav-logo-btn {
@@ -171,11 +141,55 @@ a {
   transform: translateX(2px);
 }
 
+/* ==========================================================================
+   Hero Section (Full Screen)
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transform: scale(1.01);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.48) 0%,
+    rgba(15, 23, 42, 0.15) 35%,
+    rgba(15, 23, 42, 0.05) 65%,
+    rgba(15, 23, 42, 0.35) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* Hero Center Content */
 .hero-content {
   position: relative;
   z-index: 5;
-  margin-top: 48px;
+  margin-top: 110px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -463,16 +477,33 @@ a {
 }
 
 /* ==========================================================================
-   Animations
+   Smooth Scroll Reveal Animations
    ========================================================================== */
-@keyframes fadeInDown {
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger animation for host cards */
+.hosts-grid .host-card:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+@keyframes fadeInDownNav {
   from {
     opacity: 0;
-    transform: translateY(-16px);
+    transform: translate(-50%, -18px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
 }
 
@@ -519,13 +550,19 @@ a {
   }
 
   .pill-nav {
-    margin-top: 16px;
+    top: 14px;
     gap: 8px;
-    padding: 8px;
+    padding: 8px 12px;
+    max-width: calc(100vw - 24px);
+    width: max-content;
+  }
+
+  .pill-nav.is-scrolled {
+    padding: 7px 10px;
   }
 
   .holyjs-nav-logo {
-    height: 28px;
+    height: 26px;
   }
 
   .nav-links {
@@ -539,6 +576,10 @@ a {
   .nav-btn-watch {
     padding: 5px 10px;
     font-size: 12px;
+  }
+
+  .hero-content {
+    margin-top: 90px;
   }
 
   .hero-title {
