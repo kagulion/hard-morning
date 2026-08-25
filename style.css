@@ -255,7 +255,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  max-width: 840px;
+  max-width: 960px;
 }
 
 .section-title {
@@ -268,7 +268,7 @@ a {
 }
 
 .intro-description {
-  max-width: 680px;
+  max-width: 760px;
 }
 
 .intro-description p {
@@ -276,6 +276,81 @@ a {
   line-height: 1.7;
   color: var(--color-text-muted);
   font-weight: 400;
+}
+
+/* ==========================================================================
+   Platform Links (SVG Logos)
+   ========================================================================== */
+.platform-links {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.platform-link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--color-text-main);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.platform-link-item:hover {
+  transform: translateY(-2px);
+  opacity: 0.88;
+}
+
+.platform-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.platform-link-item:hover .platform-logo-img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.platform-name {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   Video Container (Responsive 16:9 Iframe)
+   ========================================================================== */
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -10px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  margin-top: 12px;
+  background-color: #000000;
+  transition: box-shadow 0.3s ease;
+}
+
+.video-container:hover {
+  box-shadow: 0 24px 50px -10px rgba(15, 23, 42, 0.32), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* ==========================================================================
@@ -328,6 +403,15 @@ a {
   .intro-description p {
     font-size: 15px;
   }
+
+  .platform-name {
+    font-size: 1.1rem;
+  }
+
+  .platform-logo-img {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -369,5 +453,23 @@ a {
 
   .main-content {
     padding: 120px 16px 90px;
+  }
+
+  .platform-links {
+    gap: 20px;
+  }
+
+  .platform-logo-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .platform-name {
+    font-size: 1.05rem;
+  }
+
+  .video-container {
+    border-radius: 14px;
   }
 }
