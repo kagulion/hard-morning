@@ -1,0 +1,421 @@
+/* Reset & Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-mono: 'Martian Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-bg: #ffffff;
+  --color-text-main: #14171f;
+  --color-text-muted: #5e697a;
+  --color-text-light: #8591a2;
+  --nav-bg: rgba(22, 27, 34, 0.7);
+  --nav-border: rgba(255, 255, 255, 0.16);
+  --nav-btn-bg: rgba(255, 255, 255, 0.14);
+  --nav-btn-hover: rgba(255, 255, 255, 0.24);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  min-height: 560px;
+  max-height: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transform: scale(1.01);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.48) 0%,
+    rgba(15, 23, 42, 0.15) 35%,
+    rgba(15, 23, 42, 0.05) 65%,
+    rgba(15, 23, 42, 0.35) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Floating Navigation Pill */
+.pill-nav {
+  position: relative;
+  z-index: 10;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 6px 8px 6px 16px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--nav-border);
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-logo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.95;
+}
+
+.nav-logo-btn:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.holyjs-nav-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #e2e8f0;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease, opacity 0.2s;
+  opacity: 0.9;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.nav-btn-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--nav-btn-bg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+}
+
+.nav-btn-watch:hover {
+  background: var(--nav-btn-hover);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.arrow-icon {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.2s ease;
+}
+
+.nav-btn-watch:hover .arrow-icon {
+  transform: translateX(2px);
+}
+
+/* Hero Center Content */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  margin-top: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-title span {
+  display: block;
+}
+
+/* ==========================================================================
+   Hero Bottom Divider (6px lines, 2px gap, dark to light gradient)
+   ========================================================================== */
+.hero-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: transparent;
+  padding: 0;
+}
+
+.hero-divider .line {
+  width: 100%;
+  height: 6px;
+}
+
+.hero-divider .line-1 {
+  background-color: #11141a;
+}
+
+.hero-divider .line-2 {
+  background-color: #2b3442;
+}
+
+.hero-divider .line-3 {
+  background-color: #556477;
+}
+
+.hero-divider .line-4 {
+  background-color: #8c9cb1;
+}
+
+.hero-divider .line-5 {
+  background-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   Main Content Section
+   ========================================================================== */
+.main-content {
+  background-color: var(--color-bg);
+  padding: 90px 24px 120px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Podcast Intro Section */
+.podcast-intro-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 110px;
+  max-width: 820px;
+}
+
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+}
+
+.intro-description {
+  max-width: 540px;
+}
+
+.intro-description p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Coordinator Section */
+.coordinator-section {
+  max-width: 840px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.coordinator-headline {
+  font-family: var(--font-mono);
+  font-size: 2.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+}
+
+.highlight-pill {
+  position: relative;
+  display: inline-block;
+  color: #334155;
+  background: #f1f5f9;
+  padding: 0 8px;
+  border-radius: 4px;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.coordinator-subheadline {
+  font-family: var(--font-mono);
+  font-size: 2.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  border-top: 1px solid #f1f5f9;
+  padding: 40px 24px;
+  text-align: center;
+  background: #ffffff;
+}
+
+.footer-content p {
+  font-size: 13px;
+  color: var(--color-text-light);
+  font-family: var(--font-sans);
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 860px) {
+  .section-title {
+    font-size: 1.85rem;
+  }
+
+  .coordinator-headline,
+  .coordinator-subheadline {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    height: 75vh;
+    min-height: 440px;
+  }
+
+  .pill-nav {
+    margin-top: 16px;
+    gap: 12px;
+    padding: 5px 8px 5px 12px;
+  }
+
+  .holyjs-nav-logo {
+    height: 18px;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .nav-btn-watch {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.45rem;
+  }
+
+  .coordinator-headline,
+  .coordinator-subheadline {
+    font-size: 1.35rem;
+  }
+
+  .main-content {
+    padding: 60px 16px 80px;
+  }
+
+  .podcast-intro-section {
+    margin-bottom: 60px;
+  }
+}
