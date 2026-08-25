@@ -242,7 +242,7 @@ a {
    ========================================================================== */
 .main-content {
   background-color: var(--color-bg);
-  padding: 100px 24px 130px;
+  padding: 160px 24px 130px;
 }
 
 .container {
@@ -254,7 +254,7 @@ a {
 .podcast-intro-section {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
   max-width: 840px;
 }
 
@@ -368,6 +368,6 @@ a {
   }
 
   .main-content {
-    padding: 70px 16px 90px;
+    padding: 120px 16px 90px;
   }
 }
