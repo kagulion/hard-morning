@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Floating Pill Navigation (Fixed on Scroll) -->
+    <!-- Плавающее навигационное меню (фиксируется при скролле) -->
     <nav class="pill-nav" id="floating-nav">
       <a
         href="https://holyjs.ru/"
@@ -43,19 +43,19 @@
       </a>
     </nav>
 
-    <!-- Hero Section (Full Screen) -->
+    <!-- Главный экран (Хиро-секция на весь экран) -->
     <header class="hero-section" id="hero">
-      <!-- Background image -->
+      <!-- Фоновое изображение -->
       <div
         class="hero-bg"
         style="background-image: url(&quot;assets/images/hero.jpeg&quot;)"
       ></div>
       <div class="hero-overlay"></div>
 
-      <!-- Fireflies Particle Canvas -->
+      <!-- Canvas для частиц-светлячков -->
       <canvas id="fireflies-canvas" class="hero-fireflies"></canvas>
 
-      <!-- Hero Title -->
+      <!-- Главный заголовок -->
       <div class="hero-content">
         <h1 class="hero-title">
           <span>Техно-подкаст</span>
@@ -63,7 +63,7 @@
         </h1>
       </div>
 
-      <!-- Multi-line Grooved Divider: 6px lines, 2px gap, dark to light gradient -->
+      <!-- Многолинейный разделитель: линии 6px, отступ 2px, градиент от темного к светлому -->
       <div class="hero-divider">
         <div class="line line-1"></div>
         <div class="line line-2"></div>
@@ -73,10 +73,10 @@
       </div>
     </header>
 
-    <!-- Main Content Section -->
+    <!-- Секция основного контента -->
     <main class="main-content">
       <div class="container">
-        <!-- Podcast Intro Section -->
+        <!-- Секция «О подкасте» -->
         <section
           class="podcast-intro-section reveal-on-scroll"
           id="podcast-intro"
@@ -91,7 +91,7 @@
             </p>
           </div>
 
-          <!-- Platform Links with SVG Logos -->
+          <!-- Ссылки на платформы с SVG-логотипами -->
           <div class="platform-links">
             <a
               href="https://www.youtube.com/@HolyJS/streams"
@@ -133,7 +133,7 @@
             </a>
           </div>
 
-          <!-- Video Container (Responsive Full-Width iframe) -->
+          <!-- Контейнер для видео (адаптивный iframe на всю ширину) -->
           <div class="video-container reveal-on-scroll" id="video-container">
             <iframe
               src="https://vkvideo.ru/video_ext.php?oid=-119450242&id=456240577&hash=b540a69aaff8a168&hd=4"
@@ -152,10 +152,10 @@
           </div>
         </section>
 
-        <!-- Co-Hosts Section -->
+        <!-- Секция «Ведущие» -->
         <section class="hosts-section reveal-on-scroll" id="hosts">
           <div class="hosts-grid">
-            <!-- Host 1 -->
+            <!-- Ведущий 1 -->
             <article class="host-card reveal-on-scroll">
               <div class="host-avatar-wrapper">
                 <img
@@ -182,7 +182,7 @@
               </div>
             </article>
 
-            <!-- Host 2 -->
+            <!-- Ведущий 2 -->
             <article class="host-card reveal-on-scroll">
               <div class="host-avatar-wrapper">
                 <img
@@ -220,10 +220,10 @@
       </div>
     </footer>
 
-    <!-- Scripts: Scroll Reveal, Floating Nav & Fireflies Simulation -->
+    <!-- Скрипты: плавное появление секций, плавающее меню и светлячки -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // 1. Floating Nav Scroll State
+        // 1. Состояние плавающего меню при скролле
         const nav = document.getElementById("floating-nav");
         const handleScroll = () => {
           if (window.scrollY > 80) {
@@ -235,7 +235,7 @@
         window.addEventListener("scroll", handleScroll, { passive: true });
         handleScroll();
 
-        // 2. Intersection Observer for Smooth Section Reveal
+        // 2. Intersection Observer для плавного появления секций
         const revealElements = document.querySelectorAll(".reveal-on-scroll");
         if ("IntersectionObserver" in window) {
           const observer = new IntersectionObserver(
@@ -258,7 +258,7 @@
           revealElements.forEach((el) => el.classList.add("is-revealed"));
         }
 
-        // 3. Fireflies Simulation on Hero Section Canvas
+        // 3. Симуляция светлячков на холсте хиро-секции
         const canvas = document.getElementById("fireflies-canvas");
         if (!canvas) return;
         const ctx = canvas.getContext("2d");
@@ -280,13 +280,13 @@
         window.addEventListener("resize", resizeCanvas, { passive: true });
         resizeCanvas();
 
-        // Palette of glowing yellow and white particles
+        // Палитра светящихся желтых и белых частиц
         const colors = [
-          { r: 255, g: 242, b: 140 }, // Soft Warm Yellow
-          { r: 250, g: 204, b: 21 }, // Golden Yellow
-          { r: 254, g: 226, b: 90 }, // Light Sunlight
-          { r: 255, g: 255, b: 255 }, // Pure White
-          { r: 254, g: 249, b: 215 }, // Warm Glow White
+          { r: 255, g: 242, b: 140 }, // Мягкий пастельно-желтый
+          { r: 250, g: 204, b: 21 }, // Золотисто-желтый
+          { r: 254, g: 226, b: 90 }, // Теплый солнечный
+          { r: 255, g: 255, b: 255 }, // Чистый белый
+          { r: 254, g: 249, b: 215 }, // Светящийся мягкий белый
         ];
 
         class Firefly {
@@ -295,7 +295,7 @@
           }
 
           reset(initial = false) {
-            // Spawn: 50% left side (0% - 38%), 50% right side (62% - 100%), bottom area (48% - 94%)
+            // Появление: 50% слева (0% - 38%), 50% справа (62% - 100%), нижняя часть (48% - 94%)
             const isLeft = Math.random() < 0.5;
             if (isLeft) {
               this.x = width * (0.01 + Math.random() * 0.38);
@@ -308,9 +308,9 @@
             this.radius = 1.4 + Math.random() * 2.4;
             this.color = colors[Math.floor(Math.random() * colors.length)];
 
-            // Gentle organic roaming movement
+            // Плавное естественное перемещение
             this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = -(0.12 + Math.random() * 0.3); // Gentle upward drift
+            this.vy = -(0.12 + Math.random() * 0.3); // Легкий дрейф вверх
             this.driftAngleX = Math.random() * Math.PI * 2;
             this.driftAngleY = Math.random() * Math.PI * 2;
             this.driftSpeedX = 0.02 + Math.random() * 0.035;
@@ -318,13 +318,13 @@
             this.driftRadiusX = 0.5 + Math.random() * 0.9;
             this.driftRadiusY = 0.3 + Math.random() * 0.6;
 
-            // Twinkling / Flickering parameters (мигание)
+            // Параметры мерцания и мигания
             this.twinkleSpeed = 0.06 + Math.random() * 0.09;
             this.twinklePhase = Math.random() * Math.PI * 2;
             this.microFlickerSpeed = 0.18 + Math.random() * 0.15;
             this.maxAlpha = 0.55 + Math.random() * 0.42;
 
-            // Lifespan & smooth envelope
+            // Продолжительность жизни и плавное затухание/появление
             this.maxLife = 260 + Math.random() * 320;
             this.fadeIn = 40 + Math.random() * 30;
             this.fadeOut = 45 + Math.random() * 30;
@@ -338,13 +338,13 @@
               return;
             }
 
-            // Slight floating and wandering motion after appearing
+            // Плавное парение и покачивание после появления
             this.driftAngleX += this.driftSpeedX;
             this.driftAngleY += this.driftSpeedY;
             this.x += this.vx + Math.sin(this.driftAngleX) * this.driftRadiusX;
             this.y += this.vy + Math.cos(this.driftAngleY) * this.driftRadiusY;
 
-            // Smooth envelope (fade in / stay active / fade out)
+            // Плавная огибающая (появление / активная фаза / затухание)
             let baseEnvelope = 1;
             if (this.life < this.fadeIn) {
               baseEnvelope = this.life / this.fadeIn;
@@ -355,7 +355,7 @@
               );
             }
 
-            // Authentic firefly twinkling & flickering (мигание)
+            // Эффект мерцания и мигания светлячков
             const mainPulse = Math.pow(
               (Math.sin(this.life * this.twinkleSpeed + this.twinklePhase) +
                 1) /
@@ -383,7 +383,7 @@
             const { r, g, b } = this.color;
             const glowRadius = this.radius * 4.8 * this.currentGlowScale;
 
-            // Outer soft pulsating glow halo
+            // Внешний мягкий пульсирующий ореол свечения
             const glowGradient = ctx.createRadialGradient(
               this.x,
               this.y,
@@ -407,7 +407,7 @@
             ctx.arc(this.x, this.y, glowRadius, 0, Math.PI * 2);
             ctx.fill();
 
-            // Core bright shimmering point
+            // Яркая мерцающая точка в центре
             ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(1, this.currentAlpha * 1.15)})`;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius * 0.75, 0, Math.PI * 2);
@@ -437,7 +437,7 @@
           animationFrameId = requestAnimationFrame(render);
         };
 
-        // Pause rendering when hero is scrolled offscreen to optimize performance
+        // Приостановка рендеринга, когда хиро-секция вне экрана (для оптимизации)
         const heroSection = document.getElementById("hero");
         if ("IntersectionObserver" in window && heroSection) {
           const heroObserver = new IntersectionObserver(
